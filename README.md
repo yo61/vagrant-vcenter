@@ -1,7 +1,7 @@
 [Vagrant](http://www.vagrantup.com) provider for VMware vCenter®
 =============
 
-[Version 0.3.2](../../releases/tag/v0.3.2) has been released!
+[Version 0.3.3](../../releases/tag/v0.3.3) has been released!
 -------------
 
 Please note that this software is still Alpha/Beta quality and is not recommended for production usage.
@@ -9,6 +9,29 @@ Please note that this software is still Alpha/Beta quality and is not recommende
 We have a wide array of boxes available at [Vagrant Cloud](https://vagrantcloud.com/gosddc) you can use them directly or you can roll your own as you please, make sure to install VMware tools in it.
 
 This plugin supports the universal [```vmware_ovf``` box format](https://github.com/gosddc/packer-post-processor-vagrant-vmware-ovf/wiki/vmware_ovf-Box-Format), that is 100% portable between [vagrant-vcloud](https://github.com/frapposelli/vagrant-vcloud), [vagrant-vcenter](https://github.com/gosddc/vagrant-vcenter) and [vagrant-vcloudair](https://github.com/gosddc/vagrant-vcloudair), no more double boxes!.
+
+Changes in [version 0.3.1](../../releases/tag/v0.3.1) include:
+
+Changes
+
+- Configuration setting ```computer_name``` renamed to ```compute_name``` as this can be either a vSphere host or a Cluster name.
+
+Fixes
+
+-  Better error management
+-  Fixed some commands in unwanted situations (SSH when machine suspended/off)
+-  Refactored code to avoid code duplication
+
+
+Changes in [version 0.3.0](../../releases/tag/v0.3.0) include:
+
+Fixes
+
+- ```vmware_ovf``` support!
+- You can now specify network using the ```public_network``` notation of Vagrant.
+- Plugin is now operating in parallel, MOAR SPEED!
+- Create the VM folder if it doesn't exist.
+- Several bug fixes.
 
 Install
 -------------
@@ -94,7 +117,6 @@ Vagrant.configure('2') do |config|
           override.folder_name = 'Vagrant/centos'
         when /precise/
           override.folder_name = 'Vagrant/ubuntu/precise'
-          override.enable_vm_customization = false
         end
       end
       node_config.nfs.functional = false
